@@ -2,36 +2,23 @@ import React, { Component } from "react"; // imrc
 
 // cc
 class Counter extends Component {
-  state = {
-    value: 0,
-  };
-
-  onIncrement = () => {
-    let { value } = this.state;
-    value++;
-    this.setState({ value });
-  };
-
-  onDecrement = () => {
-    let { value } = this.state;
-    value--;
-    this.setState({ value });
-  };
-
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <React.Fragment>
         <br />
-        Title <span> {this.state.value} </span>
+        Title #{this.props.counter.id}:
+        <span>
+          <b>{this.props.counter.value}</b>
+        </span>
         <button
-          onClick={this.onIncrement}
+          onClick={() => this.props.onIncrement(this.props.counter)}
           className="btn btn-success btn-sm m-2"
         >
           +
         </button>
         <button
-          onClick={this.onDecrement}
+          onClick={() => this.props.onDecrement(this.props.counter)}
           className="btn btn-success btn-sm m-2"
         >
           -
