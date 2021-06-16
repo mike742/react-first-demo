@@ -1,11 +1,15 @@
-import './App.css';
-import Counters from './components/counters';
-import 'bootstrap/dist/css/bootstrap.css';
-import NavBar from './components/navbar';
-import React, { Component } from 'react';
+import "./App.css";
+import Counters from "./components/counters";
+import "bootstrap/dist/css/bootstrap.css";
+import NavBar from "./components/navbar";
+import React, { Component } from "react";
+
+import axios from "axios";
+import Doctors from "./components/doctors";
 
 class App extends Component {
   state = {
+    doctors: [],
     counters: [
       { id: 1, value: 1 },
       { id: 2, value: 7 },
@@ -13,6 +17,14 @@ class App extends Component {
       { id: 4, value: 105 },
     ],
   };
+
+  componentDidMount() {
+    axios.get("https://localhost:5001/Doctors").then((responce) => {
+      //console.table(responce.data);
+      this.setState({ doctors: responce.data });
+    });
+  }
+
   handleIncrement = (c) => {
     const counters = [...this.state.counters];
     const index = counters.indexOf(c);
@@ -50,21 +62,28 @@ class App extends Component {
     this.setState({ counters });
   };
 
-  render() { 
-    return ( 
-    <React.Fragment>
-      <NavBar totalItemsNumber={this.state.counters.filter(c => c.value > 0).length}></NavBar>
-      <main className="container">
-        <Counters
-          counters={this.state.counters}
-          onReset={this.handleReset}
-          onAdd={this.handleAdd}
-          onDelete={this.handleDelete}
-          onIncrement={this.handleIncrement}
-          onDecrement={this.handleDecrement}
-        ></Counters>
-      </main>
-    </React.Fragment> );
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar
+          totalItemsNumber={
+            this.state.counters.filter((c) => c.value > 0).length
+          }
+        ></NavBar>
+        <main className="container">
+          <Doctors doctors={this.state.doctors}></Doctors>
+
+          {/* <Counters
+            counters={this.state.counters}
+            onReset={this.handleReset}
+            onAdd={this.handleAdd}
+            onDelete={this.handleDelete}
+            onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
+          ></Counters> */}
+        </main>
+      </React.Fragment>
+    );
   }
 }
 
