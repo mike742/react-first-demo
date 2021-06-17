@@ -5,6 +5,7 @@ import React, { Component } from "react";
 
 import axios from "axios";
 import Doctors from "./components/doctors";
+import Patient from "./components/patient";
 
 class App extends Component {
   state = {
@@ -41,6 +42,7 @@ class App extends Component {
             onCurrentDoctor={this.handleCurrentDoctor}
           ></Doctors>
           <hr />
+          <Patient></Patient>
         </main>
       </React.Fragment>
     );
