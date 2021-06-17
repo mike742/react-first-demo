@@ -27,6 +27,15 @@ class App extends Component {
     this.setState({ currentDoctorId: event.target.value });
   };
 
+  handleCurrentPatient = (event) => {
+    console.log(event);
+    this.setState({ patient: event });
+  };
+  handleAiment = (e) => {
+    // console.log(e.target.value);
+    this.setState({ currentAilment: e.target.value });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -34,7 +43,11 @@ class App extends Component {
         <main className="container">
           <p>
             Current Doctor ID: &nbsp;
-            {this.state.currentDoctorId}
+            {this.state.currentDoctorId} <br />
+            Current Patient ID: &nbsp;
+            {this.state.patient.id} <br />
+            Current Aient text: &nbsp;
+            {this.state.currentAilment}
             <br />
           </p>
           <Doctors
@@ -42,7 +55,19 @@ class App extends Component {
             onCurrentDoctor={this.handleCurrentDoctor}
           ></Doctors>
           <hr />
-          <Patient></Patient>
+          <Patient onCurrentPatient={this.handleCurrentPatient}></Patient>
+          <hr />
+          <div className="mb-3">
+            <label htmlFor="exampleFormControlTextarea1" className="form-label">
+              Aiment:
+            </label>
+            <textarea
+              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              onChange={this.handleAiment}
+            ></textarea>
+          </div>
         </main>
       </React.Fragment>
     );
@@ -50,3 +75,8 @@ class App extends Component {
 }
 
 export default App;
+
+/*
+1. Patient's date of birth input: no data for existing patient!
+2.  AddNewPatient has no Id in patient object
+*/
