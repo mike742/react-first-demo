@@ -46,7 +46,7 @@ class App extends Component {
             {this.state.currentDoctorId} <br />
             Current Patient ID: &nbsp;
             {this.state.patient.id} <br />
-            Current Aient text: &nbsp;
+            Current Aiment text: &nbsp;
             {this.state.currentAilment}
             <br />
           </p>
@@ -68,7 +68,16 @@ class App extends Component {
               onChange={this.handleAiment}
             ></textarea>
           </div>
-          <button className="btn btn-success m-2"> Add Intake </button>
+          <button
+            className="btn btn-success m-2"
+            disabled={
+              this.state.currentDoctorId === undefined ||
+              this.state.patient.healthNumber === undefined ||
+              this.state.currentAilment === ""
+            }
+          >
+            Add Intake
+          </button>
         </main>
       </React.Fragment>
     );
@@ -80,4 +89,10 @@ export default App;
 /*
   1.  Patient's date of birth input: no data for existing patient!
   2.  AddNewPatient has no Id in patient object
+  
+  STR: Insert new id value into the 'Id Searching' input. Press [Tab]. Fill all inpunts with data.
+       Press [Create New Patioent] button.
+  
+  AR: There is no Id in current patient.
+  ER: Current patient id should be presented
 */

@@ -16,8 +16,12 @@ class Patient extends Component {
         );
       }
 
-      this.setState({ patient: response.data === "" ? {} : response.data });
-      this.props.onCurrentPatient(response.data);
+      let patient = Object.assign({}, response.data);
+      patient.id = id;
+
+      this.setState({ patient });
+      this.props.onCurrentPatient(patient);
+
       this.setState({ isCreate: response.data.name !== undefined });
     });
   };
@@ -34,6 +38,8 @@ class Patient extends Component {
 
   AddNewPatient = () => {
     let patient = Object.assign({}, this.state.patient);
+
+    console.log("this.state.patient", this.state.patient);
 
     axios.post("https://localhost:5001/Patients", patient).then((responce) => {
       this.props.onCurrentPatient(patient);
