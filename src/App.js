@@ -68,6 +68,7 @@ class App extends Component {
               onChange={this.handleAiment}
             ></textarea>
           </div>
+          <button className="btn btn-success m-2"> Add Intake </button>
         </main>
       </React.Fragment>
     );
@@ -77,6 +78,6 @@ class App extends Component {
 export default App;
 
 /*
-1. Patient's date of birth input: no data for existing patient!
-2.  AddNewPatient has no Id in patient object
+  1.  Patient's date of birth input: no data for existing patient!
+  2.  AddNewPatient has no Id in patient object
 */

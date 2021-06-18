@@ -10,6 +10,12 @@ class Patient extends Component {
 
   handleId = (id) => {
     axios.get("https://localhost:5001/Patients/" + id).then((response) => {
+      if (response.data.dateOfBirth !== undefined) {
+        response.data.dateOfBirth = this.formatDate(
+          new Date(response.data.dateOfBirth)
+        );
+      }
+
       this.setState({ patient: response.data === "" ? {} : response.data });
       this.props.onCurrentPatient(response.data);
       this.setState({ isCreate: response.data.name !== undefined });
@@ -33,6 +39,18 @@ class Patient extends Component {
       this.props.onCurrentPatient(patient);
       console.log("POST : ", responce);
     });
+  };
+
+  formatDate = (date) => {
+    let d = new Date(date),
+      month = d.getMonth() + 1 + "",
+      day = d.getDate() + "",
+      year = d.getFullYear() + "";
+
+    if (month.length < 2) month = "0" + month; // 01
+    if (day.length < 2) day = "0" + day; // 10
+
+    return year + "-" + month + "-" + day;
   };
 
   render() {
@@ -112,7 +130,7 @@ class Patient extends Component {
         ></input>
         <button
           type="button"
-          className="btn btn-success  m-2"
+          className="btn btn-success btn-sm m-2"
           disabled={this.state.isCreate}
           onClick={this.AddNewPatient}
         >
@@ -120,7 +138,7 @@ class Patient extends Component {
         </button>
         <button
           type="button"
-          class="btn btn-warning m-2"
+          class="btn btn-warning btn-sm m-2"
           disabled={!this.state.isCreate}
           onClick={this.UpdatePatient}
         >
